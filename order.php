@@ -111,15 +111,31 @@ if (isset($_GET['delete'])) {
                                                         <td><?php echo $rowTrans['order_code'] ?></td>
                                                         <td><?php echo $rowTrans['customer_name'] ?></td>
                                                         <td><?php echo $rowTrans['order_date'] ?></td>
-                                                        <td><?php echo $rowTrans['order_status'] ?></td>
+                                                        <td>
+                                                            <?php 
+                                                            switch ($rowTrans['order_status']) {
+                                                                case '1':
+                                                                    $badge = "<span class='badge bg-success '>Sudah Dikembalikan</span>";
+                                                                    break; 
+                                                                    
+                                                                default:
+                                                                    $badge = "<span class='badge bg-warning '>Baru</span>";
+                                                                    break;
+                                                            }
+
+                                                            echo $badge;
+                                                            ?>
+                                                        </td>
                                                         <?php if ($_SESSION['id_level'] == 1) : ?>
                                                             <td>
-                                                            <a class="btn btn-warning btn-sm"
-                                                                    href="order.php?print=<?php echo $rowTrans['id'] ?>"><span class="tf-icon bx bx-layout"></a>
-                                                                    
-                                                                <a class="btn btn-danger btn-sm"
-                                                                    onclick="return confirm('Apakah Anda Yakin untuk Menghapus Data Ini?')"
-                                                                    href="order.php?delete=<?php echo $rowTrans['id'] ?>"><span class="tf-icon bx bx-trash"></a>
+                                                            <a class="btn btn-primary btn-sm"
+                                                                href="tambah-order.php?detail=<?php echo $rowTrans['id'] ?>"><span class="tf-icon bx bx-show">
+                                                            </a>
+                                                            <a target="_blank" class="btn btn-warning btn-sm"
+                                                                    href="print.php?id=<?php echo $rowTrans['id'] ?>"><span class="tf-icon bx bx-printer"></a>       
+                                                            <a class="btn btn-danger btn-sm"
+                                                                onclick="return confirm('Apakah Anda Yakin untuk Menghapus Data Ini?')"
+                                                                href="order.php?delete=<?php echo $rowTrans['id'] ?>"><span class="tf-icon bx bx-trash"></a>
                                                             </td>
                                                         <?php endif ?>
                                                     </tr>
